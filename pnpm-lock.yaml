@@ -11,6 +11,12 @@ dependencies:
   '@stoplight/mosaic':
     specifier: ^1.53.4
     version: 1.53.4(react-dom@18.3.1)(react@18.3.1)
+  '@types/prismjs':
+    specifier: ^1.26.4
+    version: 1.26.4
+  prismjs:
+    specifier: ^1.29.0
+    version: 1.29.0
   react:
     specifier: ^18.3.1
     version: 18.3.1
@@ -52,6 +58,9 @@ devDependencies:
   vite:
     specifier: ^5.4.1
     version: 5.4.1
+  vite-plugin-prismjs:
+    specifier: ^0.0.11
+    version: 0.0.11(prismjs@1.29.0)
 
 packages:
 
@@ -1242,6 +1251,10 @@ packages:
     resolution: {integrity: sha512-SuT16Q1K51EAVPz1K29DJ/sXjhSQ0zjvsypYJ6tlwVsRV9jwW5Adq2ch8Dq8kDBCkYnELS7N7VNCSB5nC56t/g==}
     dev: false
 
+  /@types/prismjs@1.26.4:
+    resolution: {integrity: sha512-rlAnzkW2sZOjbqZ743IHUhFcvzaGbqijwOu8QZnZCjfQzBqFE3s4lOTJEsxikImav9uzz/42I+O7YUs1mWgMlg==}
+    dev: false
+
   /@types/prop-types@15.7.13:
     resolution: {integrity: sha512-hCZTSvwbzWGvhqxp/RqVqwU999pBf2vp7hzIjiYOsl8wqOmUxkQ6ddw1cV3l8811+kdUFus/q4d1Y3E3SyEifA==}
 
@@ -1474,6 +1487,14 @@ packages:
   /array-union@2.1.0:
     resolution: {integrity: sha512-HGyxoOTYUyCM6stUe6EJgnd4EoewAI7zMdfqO+kGjnlZmBDz/cR5pf8r/cR4Wq60sL/p0IkcjUEEPwS3GFrIyw==}
     engines: {node: '>=8'}
+    dev: true
+
+  /babel-plugin-prismjs@2.1.0(prismjs@1.29.0):
+    resolution: {integrity: sha512-ehzSKYfeAz4U78zi/sfwsjDPlq0LvDKxNefcZTJ/iKBu+plsHsLqZhUeGf1+82LAcA35UZGbU6ksEx2Utphc/g==}
+    peerDependencies:
+      prismjs: ^1.18.0
+    dependencies:
+      prismjs: 1.29.0
     dev: true
 
   /bail@1.0.5:
@@ -2693,7 +2714,6 @@ packages:
   /prismjs@1.29.0:
     resolution: {integrity: sha512-Kx/1w86q/epKcmte75LNrEoT+lX8pBpavuAbvJWRXar7Hz8jrtF+e3vY751p0R8H9HdArwaCTNDDzHg/ScJK1Q==}
     engines: {node: '>=6'}
-    dev: false
 
   /prop-types@15.8.1:
     resolution: {integrity: sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==}
@@ -3284,6 +3304,17 @@ packages:
       unist-util-stringify-position: 3.0.3
       vfile-message: 3.1.4
     dev: false
+
+  /vite-plugin-prismjs@0.0.11(prismjs@1.29.0):
+    resolution: {integrity: sha512-20NBQxg/zH+3FTrlU6BQTob720xkuXNYtrx7psAQ4E6pMcRDeLEK77QU9kXURU587+f2To7ASH1JVTGbXVV/vQ==}
+    engines: {node: '>=12.0.0'}
+    dependencies:
+      '@babel/core': 7.25.2
+      babel-plugin-prismjs: 2.1.0(prismjs@1.29.0)
+    transitivePeerDependencies:
+      - prismjs
+      - supports-color
+    dev: true
 
   /vite@5.4.1:
     resolution: {integrity: sha512-1oE6yuNXssjrZdblI9AfBbHCC41nnyoVoEZxQnID6yvQZAFBzxxkqoFLtHUMkYunL8hwOLEjgTuxpkRxvba3kA==}
