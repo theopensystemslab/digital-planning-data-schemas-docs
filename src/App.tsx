@@ -1,26 +1,59 @@
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+
 import { JsonSchemaViewer } from "@stoplight/json-schema-viewer";
-import { Box, injectStyles, Provider as MosaicProvider } from '@stoplight/mosaic';
+import { Provider as MosaicProvider, injectStyles } from "@stoplight/mosaic";
+import useQuerySchemas from "./../api/useQuerySchemas";
 
-import prototypeApplication from "./schemas/prototypeApplication.json"; // TODO fetch live from GH Pages
-
-function App() {
+const App = () => {
   injectStyles();
 
-  return (
-    <MosaicProvider>
-      <Box mx="auto" py={20} px={8} style={{ maxWidth: 800 }}>
-        <JsonSchemaViewer
-          name="Digital planning data schemas"
-          schema={prototypeApplication}
-          hideTopBar={false}
-          emptyText="No schema defined"
-          expanded={true}
-          defaultExpandedDepth={0}
-          renderRootTreeLines={true}
-        />
-      </Box>
-    </MosaicProvider>
-  );
-}
+  const { data: schema, isLoading, isError } = useQuerySchemas();
 
-export default App
+  return (
+    <Box py={2} style={{ maxWidth: 1000 }} mx="auto">
+      <Typography textAlign="center" variant="h2">
+        Digital planning data schemas
+      </Typography>
+      <Typography pt={4} maxWidth={800} mx='auto'>
+        Digital Planning Data schemas aim to encourage more interoperability and
+        consistency between systems by offering a central, version controlled
+        specification for documenting and validating planning data.
+      </Typography>
+      <MosaicProvider>
+        <Box
+          p={6}
+          my={4}
+          maxWidth={800}
+          style={{
+            borderRadius: 2,
+            backgroundColor: "#fff5ef",
+          }}
+          mx="auto"
+        >
+          {isLoading ? (
+            <Typography>Loading...</Typography>
+          ) : (
+            <>
+              <Typography pb={2}>{schema.$id}</Typography>
+              <JsonSchemaViewer
+                name="Digital planning data schemas"
+                schema={schema}
+                hideTopBar={false}
+                emptyText="No schema defined"
+                expanded={true}
+                defaultExpandedDepth={0}
+                renderRootTreeLines={true}
+              />
+            </>
+          )}
+          {isError && (
+            <Typography pt={4}>Sorry, please try again later.</Typography>
+          )}
+        </Box>
+      </MosaicProvider>
+    </Box>
+  );
+};
+
+export default App;
