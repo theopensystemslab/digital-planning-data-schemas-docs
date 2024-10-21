@@ -15,13 +15,10 @@ const App = () => {
       <Typography textAlign="center" variant="h2">
         Digital planning data schemas
       </Typography>
-      <Typography pt={4} textAlign={"center"}>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce mattis
-        eget purus quis feugiat. Ut vehicula, turpis sit amet lacinia fermentum,
-        turpis arcu commodo enim, sed malesuada erat nisi nec urna. Pellentesque
-        nunc risus, efficitur sit amet nisi id, pretium sollicitudin nibh. Etiam
-        at nulla aliquet est placerat bibendum. Praesent dictum ante nec
-        lobortis auctor. Nullam ut ex augue.
+      <Typography pt={4} maxWidth={800} mx='auto'>
+        Digital Planning Data schemas aim to encourage more interoperability and
+        consistency between systems by offering a central, version controlled
+        specification for documenting and validating planning data.
       </Typography>
       <MosaicProvider>
         <Box
@@ -38,9 +35,7 @@ const App = () => {
             <Typography>Loading...</Typography>
           ) : (
             <>
-              <Typography pb={2}>
-                {schema.$id}
-              </Typography>
+              <Typography pb={2}>{schema.$id}</Typography>
               <JsonSchemaViewer
                 name="Digital planning data schemas"
                 schema={schema}
