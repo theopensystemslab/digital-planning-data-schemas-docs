@@ -11,6 +11,9 @@
   },
   "homepage": "https:/theopensystemslab.github.io/digital-planning-data-schemas-docs",
   "dependencies": {
+    "@emotion/react": "^11.13.3",
+    "@emotion/styled": "^11.13.0",
+    "@mui/material": "^6.1.4",
     "@stoplight/json-schema-viewer": "^4.16.1",
     "@stoplight/mosaic": "^1.53.4",
     "@types/prismjs": "^1.26.4",
