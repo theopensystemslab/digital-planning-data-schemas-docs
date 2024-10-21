@@ -3,11 +3,14 @@ import Typography from "@mui/material/Typography";
 
 import { JsonSchemaViewer } from "@stoplight/json-schema-viewer";
 import { Provider as MosaicProvider, injectStyles } from "@stoplight/mosaic";
+import useQuerySchemas from "./../api/useQuerySchemas";
 
-import prototypeApplication from "./schemas/prototypeApplication.json"; // TODO fetch live from GH Pages
+// import prototypeApplication from "./schemas/prototypeApplication.json"; // TODO fetch live from GH Pages
 
-function App() {
+const App = () => {
   injectStyles();
+
+  const { data: schema, isLoading, isError } = useQuerySchemas();
 
   return (
     <Box py={2} style={{ maxWidth: 1000 }} mx="auto">
@@ -33,19 +36,24 @@ function App() {
           }}
           mx="auto"
         >
-          <JsonSchemaViewer
-            name="Digital planning data schemas"
-            schema={prototypeApplication}
-            hideTopBar={false}
-            emptyText="No schema defined"
-            expanded={true}
-            defaultExpandedDepth={0}
-            renderRootTreeLines={true}
-          />
+          {isLoading ? (
+            <Typography>Loading...</Typography>
+          ) : (
+            <JsonSchemaViewer
+              name="Digital planning data schemas"
+              schema={schema}
+              hideTopBar={false}
+              emptyText="No schema defined"
+              expanded={true}
+              defaultExpandedDepth={0}
+              renderRootTreeLines={true}
+            />
+          )}
+      {isError && <Typography pt={4}>Sorry, please try again later.</Typography>}
         </Box>
       </MosaicProvider>
     </Box>
   );
-}
+};
 
 export default App;
