@@ -5,8 +5,6 @@ import { JsonSchemaViewer } from "@stoplight/json-schema-viewer";
 import { Provider as MosaicProvider, injectStyles } from "@stoplight/mosaic";
 import useQuerySchemas from "./../api/useQuerySchemas";
 
-// import prototypeApplication from "./schemas/prototypeApplication.json"; // TODO fetch live from GH Pages
-
 const App = () => {
   injectStyles();
 
@@ -39,17 +37,24 @@ const App = () => {
           {isLoading ? (
             <Typography>Loading...</Typography>
           ) : (
-            <JsonSchemaViewer
-              name="Digital planning data schemas"
-              schema={schema}
-              hideTopBar={false}
-              emptyText="No schema defined"
-              expanded={true}
-              defaultExpandedDepth={0}
-              renderRootTreeLines={true}
-            />
+            <>
+              <Typography pb={2}>
+                {schema.$id}
+              </Typography>
+              <JsonSchemaViewer
+                name="Digital planning data schemas"
+                schema={schema}
+                hideTopBar={false}
+                emptyText="No schema defined"
+                expanded={true}
+                defaultExpandedDepth={0}
+                renderRootTreeLines={true}
+              />
+            </>
           )}
-      {isError && <Typography pt={4}>Sorry, please try again later.</Typography>}
+          {isError && (
+            <Typography pt={4}>Sorry, please try again later.</Typography>
+          )}
         </Box>
       </MosaicProvider>
     </Box>
