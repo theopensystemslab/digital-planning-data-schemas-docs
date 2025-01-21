@@ -13,7 +13,7 @@ import { useState } from "react";
 import Header from "./components/Header";
 
 // TODO: grab this programatically instead of hard-coding
-const LATEST_WORKING_VERSION = "v0.7.0";
+const LATEST_WORKING_VERSION = "application";
 
 const App = () => {
   injectStyles();
@@ -43,7 +43,7 @@ const App = () => {
         <>
           <form onSubmit={formik.handleSubmit}>
             <InputLabel shrink id="select-version-label">
-              Version
+              Available schemas (@next version)
             </InputLabel>
             <Select
               sx={{ marginBottom: 4 }}
@@ -59,21 +59,10 @@ const App = () => {
               }}
               value={formik.values.version}
             >
-              // TODO: add query to populate with a list of possible versions
-              <MenuItem value={"v0.7.1"}>v0.7.1</MenuItem>
-              <MenuItem value={"v0.7.0"}>v0.7.0</MenuItem>
-              <MenuItem value={"v0.6.0"}>v0.6.0</MenuItem>
-              <MenuItem value={"v0.5.0"}>v0.5.0</MenuItem>
-              <MenuItem value={"v0.4.0"}>v0.4.0</MenuItem>
-              <MenuItem value={"v0.4.1"}>v0.4.1</MenuItem>
-              <MenuItem value={"v0.3.0"}>v0.3.0</MenuItem>
-              <MenuItem value={"v0.2.3"}>v0.2.3</MenuItem>
-              <MenuItem value={"v0.2.2"}>v0.2.2</MenuItem>
-              <MenuItem value={"v0.2.1"}>v0.2.1</MenuItem>
-              <MenuItem value={"v0.2.0"}>v0.2.0</MenuItem>
-              <MenuItem value={"v0.1.2"}>v0.1.2</MenuItem>
-              <MenuItem value={"v0.1.1"}>v0.1.1</MenuItem>
-              <MenuItem value={"v0.1.0"}>v0.1.0</MenuItem>
+              // TODO: add query to populate with a list of possible schemas
+              <MenuItem value={"preApplication"}>Pre-application</MenuItem>
+              <MenuItem value={"application"}>Application</MenuItem>
+              <MenuItem value={"prototypeApplication"}>Prototype application (demo)</MenuItem>
             </Select>
           </form>
           {!isError && (

@@ -1,8 +1,10 @@
 import { useQuery, UseQueryOptions } from "@tanstack/react-query";
 import axios from "axios";
 
+// TODO set back to gh-pages once @next folder is fixed
 const DIGITAL_PLANNING_DATA_SCHEMAS_JSON_URL =
-  "https://theopensystemslab.github.io/digital-planning-data-schemas";
+  "https://raw.githubusercontent.com/theopensystemslab/digital-planning-data-schemas/refs/heads/main";
+  // "https://theopensystemslab.github.io/digital-planning-data-schemas";
 
 // TODO: type the version more strictly
 const useQuerySchemas = (
@@ -18,7 +20,7 @@ const useQuerySchemas = (
     queryKey: ["schemas", version],
     queryFn: () =>
       fetchFn(
-        `${DIGITAL_PLANNING_DATA_SCHEMAS_JSON_URL}/${version}/schema.json`
+        `${DIGITAL_PLANNING_DATA_SCHEMAS_JSON_URL}/schemas/${version}.json`
       ),
     staleTime: 1000 * 60 * 10, // cache for 10 minutes
     ...options,
