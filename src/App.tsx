@@ -63,6 +63,7 @@ const App = () => {
               <MenuItem value={"preApplication"}>Pre-application</MenuItem>
               <MenuItem value={"application"}>Application</MenuItem>
               <MenuItem value={"prototypeApplication"}>Prototype application (demo)</MenuItem>
+              <MenuItem value={"postSubmissionApplication"}>Post-submission application (demo)</MenuItem>
             </Select>
           </form>
           {!isError && (
