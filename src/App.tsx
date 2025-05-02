@@ -1,38 +1,40 @@
-import Typography from "@mui/material/Typography";
-import { useQueryClient } from "@tanstack/react-query";
-
-import { JsonSchemaViewer } from "@stoplight/json-schema-viewer";
-import { injectStyles } from "@stoplight/mosaic";
-import { useFormik } from "formik";
-import useQuerySchemas from "./../api/useQuerySchemas";
-
+import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
+import Typography from "@mui/material/Typography";
+import { JsonSchemaViewer } from "@stoplight/json-schema-viewer";
+import { injectStyles } from "@stoplight/mosaic";
+import { useQueryClient } from "@tanstack/react-query";
+import { useFormik } from "formik";
 import { useState } from "react";
-import Header from "./components/Header";
 
-// TODO: grab this programatically instead of hard-coding
-const LATEST_WORKING_VERSION = "application";
+import useQuerySchemas from "./../api/useQuerySchemas";
+import Header from "./components/Header";
+import TreeDiagram from "./components/TreeDiagram";
+import Divider from "@mui/material/Divider";
+
+const LATEST_WORKING_VERSION = "@next";
+const LATEST_WORKING_SCHEMA = "application";
 
 const App = () => {
   injectStyles();
   const queryClient = useQueryClient();
-  const [selectedVersion, setSelectedVersion] = useState(
-    LATEST_WORKING_VERSION
+  const [selectedSchema, setSelectedSchema] = useState(
+    LATEST_WORKING_SCHEMA
   );
 
   const {
     data: schema,
     isLoading,
     isError,
-  } = useQuerySchemas(selectedVersion, { retry: false });
+  } = useQuerySchemas(selectedSchema, { retry: false });
 
   const formik = useFormik({
     initialValues: {
-      version: selectedVersion,
+      schema: selectedSchema,
     },
-    onSubmit: (values) => setSelectedVersion(values.version),
+    onSubmit: (values) => setSelectedSchema(values.schema),
   });
 
   return (
@@ -42,24 +44,23 @@ const App = () => {
       ) : (
         <>
           <form onSubmit={formik.handleSubmit}>
-            <InputLabel shrink id="select-version-label">
-              Available schemas (@next version)
+            <InputLabel shrink id="select-schema-label">
+              Available schemas ({LATEST_WORKING_VERSION} version)
             </InputLabel>
             <Select
               sx={{ marginBottom: 4 }}
-              labelId="select-version-label"
-              defaultValue={selectedVersion}
-              id="select-version"
+              labelId="select-schema-label"
+              defaultValue={selectedSchema}
+              id="select-schema"
               onChange={(e) => {
                 queryClient.invalidateQueries({
-                  queryKey: ["schemas", selectedVersion],
+                  queryKey: ["schemas", selectedSchema],
                 });
-                formik.setFieldValue("version", e.target.value, false);
+                formik.setFieldValue("schema", e.target.value, false);
                 formik.submitForm();
               }}
-              value={formik.values.version}
+              value={formik.values.schema}
             >
-              // TODO: add query to populate with a list of possible schemas
               <MenuItem value={"preApplication"}>Pre-application</MenuItem>
               <MenuItem value={"application"}>Application</MenuItem>
               <MenuItem value={"prototypeApplication"}>Prototype application (demo)</MenuItem>
@@ -67,15 +68,31 @@ const App = () => {
             </Select>
           </form>
           {!isError && (
-            <JsonSchemaViewer
-              name="Digital planning data schemas"
-              schema={schema}
-              hideTopBar={false}
-              emptyText="No schema defined"
-              expanded={true}
-              defaultExpandedDepth={0}
-              renderRootTreeLines={true}
-            />
+            <Box mb={4}>
+              <Typography variant="h5" mb={2}>
+                Specification
+              </Typography>
+              <JsonSchemaViewer
+                name="Digital planning data schemas"
+                schema={schema}
+                hideTopBar={false}
+                emptyText="No schema defined"
+                expanded={true}
+                defaultExpandedDepth={0}
+                renderRootTreeLines={true}
+              />
+            </Box>
+          )}
+          {!isError && selectedSchema === "prototypeApplication" && (
+            <>
+              <Divider />
+              <Box>
+                <Typography variant="h5" mt={3} mb={1}>
+                  Enums
+                </Typography>
+                <TreeDiagram schema={schema} />
+              </Box>
+            </>
           )}
         </>
       )}

@@ -8,7 +8,7 @@ const DIGITAL_PLANNING_DATA_SCHEMAS_JSON_URL =
 
 // TODO: type the version more strictly
 const useQuerySchemas = (
-  version: string,
+  schemaName: string,
   options?: Readonly<Omit<UseQueryOptions<unknown>, "queryKey" | "queryFn">>
 ) => {
   const fetchFn = async (url: string) => {
@@ -17,10 +17,10 @@ const useQuerySchemas = (
   };
 
   return useQuery({
-    queryKey: ["schemas", version],
+    queryKey: ["schemas", schemaName],
     queryFn: () =>
       fetchFn(
-        `${DIGITAL_PLANNING_DATA_SCHEMAS_JSON_URL}/schemas/${version}.json`
+        `${DIGITAL_PLANNING_DATA_SCHEMAS_JSON_URL}/schemas/${schemaName}.json`
       ),
     staleTime: 1000 * 60 * 10, // cache for 10 minutes
     ...options,
