@@ -1,11 +1,9 @@
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-
 import { Provider as MosaicProvider, injectStyles } from "@stoplight/mosaic";
-
 import { ComponentProps } from "react";
 
-const Header = ({ children }: ComponentProps<"header">)  => {
+const Header = ({ children }: ComponentProps<"header">) => {
   injectStyles();
 
   return (

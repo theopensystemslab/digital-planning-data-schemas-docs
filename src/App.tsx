@@ -1,4 +1,5 @@
 import Box from "@mui/material/Box";
+import Divider from "@mui/material/Divider";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
@@ -10,9 +11,8 @@ import { useFormik } from "formik";
 import { useState } from "react";
 
 import useQuerySchemas from "./../api/useQuerySchemas";
+import Enums from "./components/Enums";
 import Header from "./components/Header";
-import TreeDiagram from "./components/TreeDiagram";
-import Divider from "@mui/material/Divider";
 
 const LATEST_WORKING_VERSION = "@next";
 const LATEST_WORKING_SCHEMA = "application";
@@ -86,12 +86,7 @@ const App = () => {
           {!isError && selectedSchema === "prototypeApplication" && (
             <>
               <Divider />
-              <Box>
-                <Typography variant="h5" mt={3} mb={1}>
-                  Enums
-                </Typography>
-                <TreeDiagram schema={schema} />
-              </Box>
+              <Enums schema={schema} />
             </>
           )}
         </>
